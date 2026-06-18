@@ -9,7 +9,6 @@ This tool is designed to intercept and structure the Google BigQuery release not
 Primarily, this tool uses AI-generated workflows + agent creation, and newly-launched and updated Google tools: such as Antigravity tools and technologies, including the CLI, IDE, and others.
 
 ## Preview
-An open-source experiment in AI-assisted development and local system infrastructure.
 ![Application Preview](./assets/app_preview.jpg)
 
 
