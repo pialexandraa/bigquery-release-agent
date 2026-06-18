@@ -4,6 +4,7 @@ import re
 from xml.etree import ElementTree
 from flask import Flask, jsonify, render_template, request
 from datetime import datetime, timezone
+import socket
 
 app = Flask(__name__)
 
@@ -159,6 +160,19 @@ def get_release_notes():
         'last_updated': last_updated_str
     })
 
+'''
+Manually defining the socket/software endpoint for bidirectional communication.
+Will use a standard range for selection from the Ephemeral Port Range
+'''
+
+def find_free_port():
+    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as my_socket:
+        my_socket.bind(('', 0))
+        my_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+        return my_socket.getsockname()[1]
+
+# Re-wrote main to accomodate dynamic port selection
 if __name__ == '__main__':
-    # Running locally in debug mode
-    app.run(host='127.0.0.1', port=5000, debug=True)
+    port = find_free_port()
+    print(f"Launching app on dynamicall selected port: {port}")
+    app.run(host='127.0.0.1', port=port, debug=True, use_reloader=False)
